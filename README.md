@@ -1,66 +1,74 @@
-## Foundry
+# 🪙 DeFi Stablecoin Protocol
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)
+![Made with Foundry](https://img.shields.io/badge/Made%20with-Foundry-ff69b4)
+![GitHub last commit](https://img.shields.io/github/last-commit/vaishno-raj/DeFi-Stablecoin-Protocol)
+![GitHub issues](https://img.shields.io/github/issues/vaishno-raj/DeFi-Stablecoin-Protocol)
 
-Foundry consists of:
+A decentralized stablecoin protocol built with **Solidity** and **Foundry**, inspired by MakerDAO-style collateralized debt positions (CDPs).  
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This protocol allows users to:
 
-## Documentation
+- 🏦 **Deposit collateral** (ETH or other supported assets)  
+- 💵 **Mint Decentralized Stablecoin (DSC)** against collateral  
+- 🔄 **Redeem collateral** by burning DSC  
+- ⚡ **Liquidate undercollateralized positions**  
+- ✅ Fully tested with **unit tests**, **fuzzing**, and **invariant tests**  
 
-https://book.getfoundry.sh/
+---
 
-## Usage
+## 📂 Project Structure
 
-### Build
+├── src/ # Core smart contracts
+│ ├── DSCEngine.sol
+│ ├── DecentralizedStableCoin.sol
+│ └── libraries/OracleLib.sol
+│
+├── script/ # Deployment & helper scripts
+│ ├── DeployDSC.s.sol
+│ └── HelperConfig.s.sol
+│
+├── test/ # Test suite
+│ ├── unit/ # Unit tests
+│ ├── fuzz/ # Fuzzing & invariant tests
+│ └── mock/ # Mocks (ERC20, price feeds)
+│
+├── foundry.toml # Foundry configuration
+├── README.md # Project documentation
+└── LICENSE # MIT License
+  
 
-```shell
-$ forge build
-```
 
-### Test
+---
 
-```shell
-$ forge test
-```
+## ⚡ Requirements
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)  
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 
-### Format
 
-```shell
-$ forge fmt
-```
+## Getting started
+git clone https://github.com/vaishno-raj/DeFi-Stablecoin-Protocol.git
+cd DeFi-Stablecoin-Protocol
 
-### Gas Snapshots
+## Build
 
-```shell
-$ forge snapshot
-```
+forge build
 
-### Anvil
+## Run Test
 
-```shell
-$ anvil
-```
+forge test
 
-### Deploy
+## Run a specific test by name
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+forge test -m "testDepositCollateral"
 
-### Cast
+## Run test with verbose output
 
-```shell
-$ cast <subcommand>
-```
+forge test -vvvv
 
-### Help
+## Fuzz & invariant testing
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+forge test --mt invariant_protocolMustHaveMoreValueThanTotalSupply -vvvv
+
